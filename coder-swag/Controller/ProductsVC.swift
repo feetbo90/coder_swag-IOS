@@ -39,4 +39,18 @@ class ProductsVC: UIViewController, UICollectionViewDelegate, UICollectionViewDa
             return ProductCell()
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let product = products[indexPath.row]
+        performSegue(withIdentifier: "DetailsVC", sender: product)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let detailsVC = segue.destination as? DetailsVC {
+            detailsVC.initProducts(product: sender as! Product)
+            let barBtn = UIBarButtonItem()
+            barBtn.title = ""
+            navigationItem.backBarButtonItem = barBtn
+        }
+    }
 }
